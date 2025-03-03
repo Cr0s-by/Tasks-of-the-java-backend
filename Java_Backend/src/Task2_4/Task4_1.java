@@ -12,8 +12,19 @@ public class Task4_1 {
         System.out.println("Введите подстроку");
         String substring = scan.nextLine();
 
-        String[] parts = mainString.split(substring);
-        int count = parts.length - 1;
+        int count = 0;
+        int index = 0;
+
+        while (true) {
+            index = mainString.indexOf(substring, index);
+
+            if (index == -1) {
+                break;
+            }
+
+            count++;
+            index += substring.length();
+        }
 
         System.out.println("Подстрока '" + substring + "' встречается " + count + " раз");
 
