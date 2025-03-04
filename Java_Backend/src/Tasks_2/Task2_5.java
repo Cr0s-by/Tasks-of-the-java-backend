@@ -1,10 +1,12 @@
+package Tasks_2;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Task4_5 {
+public class Task2_5 {
     public static void main(String[] args) throws ParseException {
         Scanner scanner = new Scanner(System.in);
 
