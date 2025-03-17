@@ -2,41 +2,6 @@ package Tasks_3;
 
 import java.util.*;
 
-
-class User {
-    private String name;
-    private Integer age;
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String toString() {
-        return name + ", возраст " + age + " лет";
-
-    }
-
-    public User(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
-
-
-}
-
 public class Task3_3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
