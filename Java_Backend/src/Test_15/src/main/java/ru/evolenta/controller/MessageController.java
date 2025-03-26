@@ -3,7 +3,6 @@ package ru.evolenta.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.evolenta.dto.Message;
-import ru.evolenta.dto.Person;
 import ru.evolenta.repository.MessageRepository;
 
 import java.util.List;
