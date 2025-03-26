@@ -3,8 +3,10 @@ package ru.evolenta.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.evolenta.dto.Message;
+import ru.evolenta.dto.Person;
 import ru.evolenta.repository.MessageRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,6 +19,10 @@ public class MessageController {
         this.repository = repository;
     }
 
+    @GetMapping("/message")
+    public List<Message> getAllMessage() {
+        return (List<Message>) repository.findAll();
+    }
 
     @GetMapping("/message/{id}")
     public Optional<Message> findMessageById(@PathVariable int id) {
@@ -31,16 +37,16 @@ public class MessageController {
 
     @PutMapping("/message/{id}")
     public ResponseEntity<Message> updateMessage(@PathVariable int id, @RequestBody Message message) {
-        if (!repository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
+        return repository.findById(id)
+                .map(existingMessage -> {
+                    existingMessage.setTitle(message.getTitle());
+                    existingMessage.setText(message.getText());
+                    existingMessage.setTime(message.getTime());
 
-        repository.deleteById(id);
-
-        message.setId(id);
-
-        Message updatedMessage = repository.save(message);
-        return ResponseEntity.ok(updatedMessage);
+                    Message updatedMessage = repository.save(existingMessage);
+                    return ResponseEntity.ok(updatedMessage);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/message/{id}")

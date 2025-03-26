@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.evolenta.dto.Person;
 import ru.evolenta.repository.PersonRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,6 +18,10 @@ public class PersonController {
         this.repository = repository;
     }
 
+    @GetMapping("/person")
+    public List<Person> getAllPersons() {
+        return (List<Person>) repository.findAll();
+    }
 
     @GetMapping("/person/{id}")
     public Optional<Person> findPersonById(@PathVariable int id) {
@@ -31,16 +36,18 @@ public class PersonController {
 
     @PutMapping("/person/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable int id, @RequestBody Person person) {
-        if (!repository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
+        return repository.findById(id)
+                .map(existingPerson -> {
+                    // Обновляем поля существующей записи
+                    existingPerson.setFirstname(person.getFirstname());
+                    existingPerson.setSurname(person.getSurname());
+                    existingPerson.setLastname(person.getLastname());
+                    existingPerson.setBirthday(person.getBirthday());
 
-        repository.deleteById(id);
-
-        person.setId(id);
-
-        Person updatedPerson = repository.save(person);
-        return ResponseEntity.ok(updatedPerson);
+                    Person updatedPerson = repository.save(existingPerson);
+                    return ResponseEntity.ok(updatedPerson);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/person/{id}")
