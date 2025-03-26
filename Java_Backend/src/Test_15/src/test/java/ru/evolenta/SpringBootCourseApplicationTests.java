@@ -1,10 +1,10 @@
-package ru.evolenta.test;
+package ru.evolenta;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestApplicationTests {
+class SpringBootCourseApplicationTests {
 
 	@Test
 	void contextLoads() {

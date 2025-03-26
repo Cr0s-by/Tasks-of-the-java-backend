@@ -1,11 +1,21 @@
-package ru.evolenta.test.dto;
+package ru.evolenta.dto;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+@Entity
 public class Message {
+    @Id
+    @GeneratedValue
     private int id;
     private String title;
     private String text;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate time;
 
 
@@ -48,7 +58,7 @@ public class Message {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void set(LocalDate time){
         this.time = time;
     }
 }
