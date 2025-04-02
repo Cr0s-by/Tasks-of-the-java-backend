@@ -12,7 +12,6 @@ public class Weather {
     @Id
     @GeneratedValue
     private Long id;
-    private String main;
     private String weather;
     private String wind;
     private double temp;

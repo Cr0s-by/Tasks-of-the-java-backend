@@ -2,20 +2,20 @@ package com.example.person.controller;
 
 
 import com.example.person.model.Weather;
+import com.example.person.repository.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/weather")
 public class WeatherController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private WeatherRepository repository;
 
     @Value("${openweather.api.key}")
     private String apiKey;
@@ -27,7 +27,7 @@ public class WeatherController {
                 lat, lon, apiKey
         );
 
-        Weather response = restTemplate.getForObject(url, Weather.class);
+        Weather response = repository.getForObject(url, Weather.class);
 
         return mapToWeather(response);
     }
